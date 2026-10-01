@@ -150,7 +150,7 @@
     padding:10px 0;border-bottom:1px dashed #EEE1FB;gap:10px;flex-wrap:wrap;
   }
   .tense-row:last-of-type{border-bottom:none;}
-  .tense-row p{margin:0;font-size:14px;font-weight:700;flex:0 0 auto;min-width:110px;}
+  .tense-row p{margin:0;font-size:14px;font-weight:600;flex:1 1 200px;}
   .tense-select{
     border:2px solid var(--lavender-2);border-radius:10px;padding:7px 10px;
     font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;
@@ -297,7 +297,7 @@
       <div class="tf-buttons"><button class="tf-btn" onclick="selectTF(this,true)">Правда</button><button class="tf-btn" onclick="selectTF(this,false)">Ні</button></div>
     </div>
     <div class="tf-item" data-correct="true">
-      <p>У Future є лише 2 варіанти: Simple і Continuous.</p>
+      <p>Формула Future Continuous: will be + Ving.</p>
       <div class="tf-buttons"><button class="tf-btn" onclick="selectTF(this,true)">Правда</button><button class="tf-btn" onclick="selectTF(this,false)">Ні</button></div>
     </div>
     <div class="tf-item" data-correct="true">
@@ -311,8 +311,8 @@
 
   <div class="exercise">
     <span class="exercise-label">ВПРАВА 3</span>
-    <h2>🕒 Визнач час за маркером</h2>
-    <p class="hint">Обери правильний час зі списку для кожного маркера</p>
+    <h2>🕒 Визнач час за реченням</h2>
+    <p class="hint">Обери правильний час зі списку для кожного речення</p>
 
     <div id="tenseGrid"></div>
 
@@ -389,15 +389,15 @@
   /* EXERCISE 3 DATA */
   const tenseOptions = ["Present Simple","Present Continuous","Present Perfect","Present Perfect Continuous","Past Simple","Past Continuous","Past Perfect","Future Simple","Future Continuous"];
   const tenseItems = [
-    {word:"usually", correct:"Present Simple"},
-    {word:"right now", correct:"Present Continuous"},
-    {word:"already", correct:"Present Perfect"},
-    {word:"since", correct:"Present Perfect Continuous"},
-    {word:"yesterday", correct:"Past Simple"},
-    {word:"while", correct:"Past Continuous"},
-    {word:"by the time", correct:"Past Perfect"},
-    {word:"next year", correct:"Future Simple"},
-    {word:"tomorrow at 5", correct:"Future Continuous"}
+    {word:"She usually gets up at 7 o'clock.", correct:"Present Simple"},
+    {word:"Look! It's raining right now.", correct:"Present Continuous"},
+    {word:"I have already finished my homework.", correct:"Present Perfect"},
+    {word:"I have been waiting for you since 9 o'clock.", correct:"Present Perfect Continuous"},
+    {word:"He went to the cinema yesterday.", correct:"Past Simple"},
+    {word:"While I was cooking dinner, the phone rang.", correct:"Past Continuous"},
+    {word:"By the time we arrived, the film had already started.", correct:"Past Perfect"},
+    {word:"We will visit Paris next year.", correct:"Future Simple"},
+    {word:"This time tomorrow, I will be flying to London.", correct:"Future Continuous"}
   ];
   const tenseGrid = document.getElementById('tenseGrid');
   tenseItems.forEach((item,i)=>{

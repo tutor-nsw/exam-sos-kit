@@ -303,7 +303,7 @@
 
   <div class="summary" id="summary">
     <span class="emoji">🎉</span>
-    <div class="big-score" id="bigScore">0/16</div>
+    <div class="big-score" id="bigScore">0/17</div>
     <h2>Модуль завершено!</h2>
     <p>Ось твій результат по темі Conditionals</p>
     <button class="reset-btn" onclick="resetAll()">Спробувати ще раз 🔄</button>
@@ -373,7 +373,7 @@
     {w:"furthermore", correct:false},
     {w:"in case", correct:true},
     {w:"once", correct:true},
-    {w:"on condition that", correct:false}
+    {w:"on condition that", correct:true}
   ];
 
   const grid = document.getElementById('multiGrid');
@@ -385,7 +385,7 @@
   });
 
   let sectionsDone = {fill:false, tf:false, multi:false};
-  let scores = {fill:0, fillMax:5, tf:0, tfMax:4, multi:0, multiMax:7};
+  let scores = {fill:0, fillMax:5, tf:0, tfMax:4, multi:0, multiMax:8};
 
   function norm(s){
     return s.trim().toLowerCase().replace(/['']/g,"'").replace(/\s+/g,' ');
@@ -498,7 +498,7 @@
     document.querySelectorAll('.multi-chip').forEach(c=>c.classList.remove('correct','incorrect'));
     document.querySelectorAll('.section-result').forEach(r=>r.textContent='');
     sectionsDone = {fill:false, tf:false, multi:false};
-    scores = {fill:0, fillMax:5, tf:0, tfMax:4, multi:0, multiMax:7};
+    scores = {fill:0, fillMax:5, tf:0, tfMax:4, multi:0, multiMax:8};
     document.getElementById('summary').style.display = 'none';
     updateProgress();
   }
