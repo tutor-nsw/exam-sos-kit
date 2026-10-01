@@ -55,7 +55,13 @@
   }
   h1 .dot{color:var(--lavender-2);margin:0 6px;}
   .subtitle{color:var(--ink-soft);font-size:14px;font-weight:600;}
-  .handle{color:var(--primary);font-weight:700;}
+  .handle{color:var(--primary);font-weight:700;text-decoration:none;}
+  .handle:hover{text-decoration:underline;}
+
+  .site-footer{
+    text-align:center;font-size:11px;color:var(--ink-soft);
+    margin-top:30px;padding-top:16px;border-top:1px solid var(--lavender-2);opacity:.8;
+  }
 
   .tracker{
     background:var(--card);
@@ -216,7 +222,7 @@
   <header>
     <div class="kicker">🇬🇧 EXAM SOS KIT</div>
     <h1>Модуль 2 <span class="dot">·</span> Modal Verbs</h1>
-    <div class="subtitle">Граматика для НМТ / ЄВІ · <span class="handle">@tutor_nsw</span></div>
+    <div class="subtitle">Граматика для НМТ / ЄВІ · <a class="handle" href="https://www.instagram.com/tutor_nsw/" target="_blank" rel="noopener noreferrer">@tutor_nsw</a></div>
   </header>
 
   <div class="tracker">
@@ -296,10 +302,10 @@
   </div>
 
   <div class="summary" id="summary">
-    <span class="emoji">🎉</span>
+    <span class="emoji" id="summaryEmoji">🎉</span>
     <div class="big-score" id="bigScore">0/20</div>
-    <h2>Модуль завершено!</h2>
-    <p>Ось твій результат по темі Modal Verbs</p>
+    <h2 id="summaryTitle">Модуль завершено!</h2>
+    <p id="summarySubtitle">Ось твій результат по темі Modal Verbs</p>
     <button class="reset-btn" onclick="resetAll()">Спробувати ще раз 🔄</button>
   </div>
 
@@ -308,6 +314,8 @@
   <div class="nav-footer">
     <a href="exam_sos_kit_hub.html" class="nav-btn nav-home" style="flex:1 1 100%;">🏠 На головну — це остання тема курсу 🎉</a>
   </div>
+
+  <div class="site-footer">© 2026 ФОП Сміцька Д.К. Всі права захищено.</div>
 
 </div>
 
@@ -383,6 +391,12 @@
 
   function norm(s){
     return s.trim().toLowerCase().replace(/['']/g,"'").replace(/\s+/g,' ');
+  }
+
+  function getResultTier(pct){
+    if(pct >= 80) return {emoji:'🏆', title:'Чудово!', subtitle:'Ти відмінно розібралась з цією темою 💜'};
+    if(pct >= 50) return {emoji:'👍', title:'Добре!', subtitle:'Непогано! Трохи практики — і буде ідеально.'};
+    return {emoji:'📚', title:'Варто повторити', subtitle:'Нічого страшного — перегляньте матеріал ще раз і спробуйте знову.'};
   }
 
   function checkFill(){
@@ -476,7 +490,11 @@
     if(done === 3){
       const total = scores.fill + scores.tf + scores.multi;
       const max = scores.fillMax + scores.tfMax + scores.multiMax;
+      const tier = getResultTier(Math.round((total/max)*100));
       document.getElementById('bigScore').textContent = total + '/' + max;
+      document.getElementById('summaryEmoji').textContent = tier.emoji;
+      document.getElementById('summaryTitle').textContent = tier.title;
+      document.getElementById('summarySubtitle').textContent = tier.subtitle;
       document.getElementById('summary').style.display = 'block';
       document.getElementById('summary').scrollIntoView({behavior:'smooth', block:'nearest'});
       logEvent('module_complete', total + '/' + max);
