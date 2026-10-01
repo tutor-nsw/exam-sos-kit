@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exam SOS Kit — Модуль 2: Conditionals | @tutor_nsw</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF6FC;
+    --ink:#3D2A52;
+    --ink-soft:#7C6E8C;
+    --primary:#7C4FA0;
+    --primary-dark:#5B3480;
+    --lavender:#EFE4FA;
+    --lavender-2:#E3D2F5;
+    --card:#FFFFFF;
+    --success:#4F9A6E;
+    --success-bg:#E7F3EC;
+    --error:#DD6B5B;
+    --error-bg:#FBEAE7;
+    --radius:20px;
+    --shadow: 0 8px 30px rgba(91,52,128,0.10);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(600px 300px at 10% -10%, var(--lavender) 0%, transparent 60%),
+      radial-gradient(500px 260px at 100% 0%, var(--lavender-2) 0%, transparent 55%),
+      var(--bg);
+    font-family:'Nunito', sans-serif;
+    color:var(--ink);
+    padding:28px 16px 80px;
+  }
+  .wrap{max-width:680px;margin:0 auto;}
+
+  header{text-align:center;margin-bottom:22px;}
+  .kicker{
+    display:inline-flex;align-items:center;gap:6px;
+    font-family:'Baloo 2',sans-serif;
+    font-size:12px;letter-spacing:0.08em;font-weight:700;
+    color:var(--primary);
+    background:var(--lavender);
+    padding:5px 14px;border-radius:20px;
+    margin-bottom:12px;
+  }
+  h1{
+    font-family:'Baloo 2',sans-serif;
+    font-size:26px;
+    font-weight:700;
+    color:var(--primary-dark);
+    margin:0 0 6px;
+  }
+  h1 .dot{color:var(--lavender-2);margin:0 6px;}
+  .subtitle{color:var(--ink-soft);font-size:14px;font-weight:600;}
+  .handle{color:var(--primary);font-weight:700;}
+
+  .tracker{
+    background:var(--card);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:16px 20px;
+    margin:20px 0 26px;
+  }
+  .tracker-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+  .tracker-title{font-family:'Baloo 2',sans-serif;font-weight:700;font-size:14px;color:var(--primary-dark);}
+  .tracker-pct{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:14px;color:var(--primary);}
+  .tracker-bar-outer{height:10px;background:var(--lavender);border-radius:6px;overflow:hidden;}
+  .tracker-bar-inner{height:100%;background:linear-gradient(90deg,var(--primary),var(--primary-dark));width:0%;transition:width .5s ease;border-radius:6px;}
+  .tracker-sub{font-size:12px;color:var(--ink-soft);margin-top:6px;font-weight:600;}
+
+  .exercise{
+    background:var(--card);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:22px 22px 20px;
+    margin-bottom:20px;
+  }
+  .exercise-label{
+    display:inline-block;
+    font-family:'Baloo 2',sans-serif;
+    font-size:11px;
+    letter-spacing:0.06em;
+    font-weight:700;
+    color:var(--primary);
+    background:var(--lavender);
+    padding:4px 10px;
+    border-radius:20px;
+    margin-bottom:10px;
+  }
+  .exercise h2{
+    font-family:'Baloo 2',sans-serif;
+    font-size:18px;
+    margin:0 0 4px;
+    color:var(--ink);
+  }
+  .exercise .hint{font-size:13px;color:var(--ink-soft);margin:0 0 16px;font-weight:600;}
+
+  .fillblank-item{margin-bottom:14px;padding-bottom:14px;border-bottom:1px dashed #EEE1FB;}
+  .fillblank-item:last-of-type{border-bottom:none;}
+  .fillblank-item p{margin:0;font-size:15px;line-height:1.8;}
+  .blank{
+    border:2px solid var(--lavender-2);
+    border-radius:8px;
+    padding:3px 8px;
+    font-family:'Nunito',sans-serif;
+    font-weight:700;
+    font-size:14px;
+    width:120px;
+    text-align:center;
+    color:var(--ink);
+    background:#FCFAFE;
+  }
+  .blank:focus{outline:none;border-color:var(--primary);}
+  .feedback{font-size:13px;font-weight:700;margin-top:6px;min-height:16px;}
+
+  .tf-item{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:10px 0;border-bottom:1px dashed #EEE1FB;gap:12px;
+  }
+  .tf-item:last-of-type{border-bottom:none;}
+  .tf-item p{margin:0;font-size:14px;flex:1;line-height:1.5;}
+  .tf-buttons{display:flex;gap:6px;flex:0 0 auto;}
+  .tf-btn{
+    border:2px solid var(--lavender-2);
+    background:#FCFAFE;
+    color:var(--ink);
+    font-family:'Nunito',sans-serif;
+    font-weight:700;
+    font-size:13px;
+    padding:6px 12px;
+    border-radius:10px;
+    cursor:pointer;
+    transition:.15s;
+  }
+  .tf-btn.selected{background:var(--primary);color:white;border-color:var(--primary);}
+  .tf-btn.correct{background:var(--success);border-color:var(--success);color:white;}
+  .tf-btn.incorrect{background:var(--error);border-color:var(--error);color:white;}
+
+  .multi-grid{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:6px;
+  }
+  @media(max-width:420px){.multi-grid{grid-template-columns:1fr;}}
+  .multi-chip{
+    border:2px solid var(--lavender-2);
+    background:#FCFAFE;
+    border-radius:10px;
+    padding:8px 10px;
+    font-size:13px;
+    font-weight:700;
+    cursor:pointer;
+    user-select:none;
+    display:flex;align-items:center;gap:8px;
+    transition:.15s;
+  }
+  .multi-chip input{accent-color:var(--primary);width:16px;height:16px;}
+  .multi-chip.correct{background:var(--success-bg);border-color:var(--success);}
+  .multi-chip.incorrect{background:var(--error-bg);border-color:var(--error);}
+
+  .check-btn{
+    margin-top:14px;
+    background:var(--primary);
+    color:white;
+    border:none;
+    font-family:'Baloo 2',sans-serif;
+    font-weight:700;
+    font-size:14px;
+    padding:11px 22px;
+    border-radius:12px;
+    cursor:pointer;
+    transition:.15s;
+  }
+  .check-btn:hover{background:var(--primary-dark);}
+  .section-result{font-size:13px;font-weight:700;margin-top:10px;color:var(--primary-dark);}
+
+  .summary{
+    display:none;
+    text-align:center;
+    background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+    color:white;
+    border-radius:var(--radius);
+    padding:28px 22px;
+    box-shadow:var(--shadow);
+  }
+  .summary .emoji{font-size:36px;display:block;margin-bottom:6px;}
+  .summary h2{font-family:'Baloo 2',sans-serif;font-size:22px;margin:0 0 6px;}
+  .summary p{font-size:14px;opacity:.9;margin:0 0 18px;}
+  .summary .big-score{font-family:'Baloo 2',sans-serif;font-size:38px;font-weight:800;margin-bottom:4px;}
+  .reset-btn{
+    background:white;color:var(--primary-dark);border:none;
+    font-family:'Baloo 2',sans-serif;font-weight:700;font-size:14px;
+    padding:10px 20px;border-radius:12px;cursor:pointer;
+  }
+
+  .note{
+    text-align:center;font-size:12px;color:var(--ink-soft);margin-top:26px;font-weight:600;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="kicker">🇬🇧 EXAM SOS KIT</div>
+    <h1>Модуль 2 <span class="dot">·</span> Conditionals</h1>
+    <div class="subtitle">Граматика для НМТ / ЄВІ · <span class="handle">@tutor_nsw</span></div>
+  </header>
+
+  <div class="tracker">
+    <div class="tracker-top">
+      <div class="tracker-title">🎯 Твій прогрес по темі</div>
+      <div class="tracker-pct" id="progressPct">0%</div>
+    </div>
+    <div class="tracker-bar-outer"><div class="tracker-bar-inner" id="progressFill"></div></div>
+    <div class="tracker-sub" id="progressLabel">Виконано 0 із 3 вправ</div>
+  </div>
+
+  <div class="exercise">
+    <span class="exercise-label">ВПРАВА 1</span>
+    <h2>✏️ Постав дієслово у правильну форму</h2>
+    <p class="hint">🔤 Визнач тип conditional і встав дієслово у потрібну форму</p>
+
+    <div class="fillblank-item" data-answers='[["heat"],["melts"]]'>
+      <p>1. If you <input type="text" class="blank" data-idx="0"> (heat) ice, it <input type="text" class="blank" data-idx="1"> (melt).</p>
+      <div class="feedback"></div>
+    </div>
+    <div class="fillblank-item" data-answers='[["had"],["would buy"]]'>
+      <p>2. If I <input type="text" class="blank" data-idx="0"> (have) enough money, I <input type="text" class="blank" data-idx="1"> (buy) a new car.</p>
+      <div class="feedback"></div>
+    </div>
+    <div class="fillblank-item" data-answers='[["had studied"],["would have passed"]]'>
+      <p>3. If she <input type="text" class="blank" data-idx="0"> (study) harder last semester, she <input type="text" class="blank" data-idx="1"> (pass) the exam.</p>
+      <div class="feedback"></div>
+    </div>
+    <div class="fillblank-item" data-answers='[["rains"],["will not go","wont go","won\u0027t go"]]'>
+      <p>4. If it <input type="text" class="blank" data-idx="0"> (rain) tomorrow, we <input type="text" class="blank" data-idx="1"> (not go) to the park.</p>
+      <div class="feedback"></div>
+    </div>
+    <div class="fillblank-item" data-answers='[["knew"],["would call"]]'>
+      <p>5. If I <input type="text" class="blank" data-idx="0"> (know) his number, I <input type="text" class="blank" data-idx="1"> (call) him.</p>
+      <div class="feedback"></div>
+    </div>
+
+    <button class="check-btn" onclick="checkFill()">Перевірити ✅</button>
+    <div class="section-result" id="fillResult"></div>
+  </div>
+
+  <div class="exercise">
+    <span class="exercise-label">ВПРАВА 2</span>
+    <h2>🧠 Правда чи ні?</h2>
+    <p class="hint">Перевір свої знання теорії про IF</p>
+
+    <div class="tf-item" data-correct="false">
+      <p>If має 3 значення в англійській.</p>
+      <div class="tf-buttons"><button class="tf-btn" onclick="selectTF(this,true)">Правда</button><button class="tf-btn" onclick="selectTF(this,false)">Ні</button></div>
+    </div>
+    <div class="tf-item" data-correct="true">
+      <p>If має 2 значення в англійській.</p>
+      <div class="tf-buttons"><button class="tf-btn" onclick="selectTF(this,true)">Правда</button><button class="tf-btn" onclick="selectTF(this,false)">Ні</button></div>
+    </div>
+    <div class="tf-item" data-correct="true">
+      <p>Не ставимо will в одній дужці з if у значенні «якщо».</p>
+      <div class="tf-buttons"><button class="tf-btn" onclick="selectTF(this,true)">Правда</button><button class="tf-btn" onclick="selectTF(this,false)">Ні</button></div>
+    </div>
+    <div class="tf-item" data-correct="true">
+      <p>Можна поставити will в одній дужці з if у значенні «чи».</p>
+      <div class="tf-buttons"><button class="tf-btn" onclick="selectTF(this,true)">Правда</button><button class="tf-btn" onclick="selectTF(this,false)">Ні</button></div>
+    </div>
+
+    <button class="check-btn" onclick="checkTF()">Перевірити ✅</button>
+    <div class="section-result" id="tfResult"></div>
+  </div>
+
+  <div class="exercise">
+    <span class="exercise-label">ВПРАВА 3</span>
+    <h2>🔍 Знайди всі синоніми IF</h2>
+    <p class="hint">Познач усі слова-замінники IF зі списку</p>
+
+    <div class="multi-grid" id="multiGrid"></div>
+
+    <button class="check-btn" onclick="checkMulti()">Перевірити ✅</button>
+    <div class="section-result" id="multiResult"></div>
+  </div>
+
+  <div class="summary" id="summary">
+    <span class="emoji">🎉</span>
+    <div class="big-score" id="bigScore">0/16</div>
+    <h2>Модуль завершено!</h2>
+    <p>Ось твій результат по темі Conditionals</p>
+    <button class="reset-btn" onclick="resetAll()">Спробувати ще раз 🔄</button>
+  </div>
+
+  <div class="note">📊 Прогрес підказує тобі, скільки лишилось — фінальний бал бачиш тільки ти.</div>
+
+</div>
+
+<script>
+  const MODULE_NAME = 'Модуль 2';
+  const THEME_NAME  = 'Conditionals';
+  const TRACKING_URL = 'PASTE_YOUR_GOOGLE_SCRIPT_URL_HERE';
+
+  function logEvent(eventName, detail){
+    if(!TRACKING_URL || TRACKING_URL.indexOf('PASTE') !== -1) return;
+    fetch(TRACKING_URL, {
+      method:'POST',
+      mode:'no-cors',
+      headers:{'Content-Type':'text/plain'},
+      body: JSON.stringify({
+        module: MODULE_NAME,
+        theme: THEME_NAME,
+        event: eventName,
+        detail: detail || ''
+      })
+    }).catch(()=>{});
+  }
+  logEvent('page_view');
+
+  function saveProgressToHub(done, total, score, max){
+    try{
+      const raw = localStorage.getItem('examSosProgress');
+      const data = raw ? JSON.parse(raw) : {};
+      data[THEME_NAME] = {
+        module: MODULE_NAME,
+        done: done,
+        total: total,
+        score: score,
+        max: max,
+        status: done === total ? 'completed' : (done > 0 ? 'in_progress' : 'not_started'),
+        updatedAt: new Date().toISOString()
+      };
+      localStorage.setItem('examSosProgress', JSON.stringify(data));
+    }catch(e){}
+  }
+
+  const multiWords = [
+    {w:"when", correct:true},
+    {w:"tomorrow at 5", correct:false},
+    {w:"usually", correct:false},
+    {w:"then", correct:false},
+    {w:"as long as", correct:true},
+    {w:"yesterday", correct:false},
+    {w:"moreover", correct:false},
+    {w:"during", correct:false},
+    {w:"after", correct:true},
+    {w:"once upon a time", correct:false},
+    {w:"even", correct:false},
+    {w:"before", correct:true},
+    {w:"unless", correct:true},
+    {w:"furthermore", correct:false},
+    {w:"in case", correct:true},
+    {w:"once", correct:true},
+    {w:"on condition that", correct:false}
+  ];
+
+  const grid = document.getElementById('multiGrid');
+  multiWords.forEach(item=>{
+    const label = document.createElement('label');
+    label.className = 'multi-chip';
+    label.innerHTML = '<input type="checkbox" data-word="'+item.w+'" data-correct="'+item.correct+'"> '+item.w;
+    grid.appendChild(label);
+  });
+
+  let sectionsDone = {fill:false, tf:false, multi:false};
+  let scores = {fill:0, fillMax:5, tf:0, tfMax:4, multi:0, multiMax:7};
+
+  function norm(s){
+    return s.trim().toLowerCase().replace(/['']/g,"'").replace(/\s+/g,' ');
+  }
+
+  function checkFill(){
+    const items = document.querySelectorAll('.fillblank-item');
+    let correctCount = 0;
+    items.forEach(item=>{
+      const answers = JSON.parse(item.dataset.answers);
+      const inputs = item.querySelectorAll('.blank');
+      let allCorrect = true;
+      inputs.forEach((inp, idx)=>{
+        const val = norm(inp.value);
+        const accepted = answers[idx].map(a=>norm(a));
+        const ok = accepted.includes(val);
+        inp.style.borderColor = ok ? 'var(--success)' : 'var(--error)';
+        if(!ok) allCorrect = false;
+      });
+      const fb = item.querySelector('.feedback');
+      if(allCorrect){
+        fb.textContent = '✅ Правильно!';
+        fb.style.color = 'var(--success)';
+        correctCount++;
+      } else {
+        fb.textContent = '❌ Правильна відповідь: ' + answers.map(a=>a[0]).join(' / ');
+        fb.style.color = 'var(--error)';
+      }
+    });
+    scores.fill = correctCount;
+    sectionsDone.fill = true;
+    document.getElementById('fillResult').textContent = 'Результат: ' + correctCount + '/5';
+    logEvent('exercise_complete', 'fill: ' + correctCount + '/5');
+    updateProgress();
+  }
+
+  function selectTF(btn, value){
+    const group = btn.parentElement.querySelectorAll('.tf-btn');
+    group.forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected');
+    btn.parentElement.dataset.chosen = value;
+  }
+
+  function checkTF(){
+    const items = document.querySelectorAll('.tf-item');
+    let correctCount = 0;
+    items.forEach(item=>{
+      const correct = item.dataset.correct === 'true';
+      const chosen = item.querySelector('.tf-buttons').dataset.chosen;
+      const buttons = item.querySelectorAll('.tf-btn');
+      buttons.forEach(b=>b.classList.remove('correct','incorrect'));
+      if(chosen === undefined) return;
+      const chosenBool = chosen === 'true';
+      const matchBtn = [...buttons].find(b => b.classList.contains('selected'));
+      if(chosenBool === correct){
+        if(matchBtn) matchBtn.classList.add('correct');
+        correctCount++;
+      } else {
+        if(matchBtn) matchBtn.classList.add('incorrect');
+      }
+    });
+    scores.tf = correctCount;
+    sectionsDone.tf = true;
+    document.getElementById('tfResult').textContent = 'Результат: ' + correctCount + '/4';
+    logEvent('exercise_complete', 'tf: ' + correctCount + '/4');
+    updateProgress();
+  }
+
+  function checkMulti(){
+    const boxes = document.querySelectorAll('#multiGrid input[type=checkbox]');
+    let correctCount = 0;
+    boxes.forEach(box=>{
+      const chip = box.parentElement;
+      chip.classList.remove('correct','incorrect');
+      const isCorrect = box.dataset.correct === 'true';
+      if(box.checked && isCorrect){ chip.classList.add('correct'); correctCount++; }
+      else if(box.checked && !isCorrect){ chip.classList.add('incorrect'); }
+      else if(!box.checked && isCorrect){ chip.classList.add('incorrect'); }
+    });
+    scores.multi = correctCount;
+    sectionsDone.multi = true;
+    document.getElementById('multiResult').textContent = 'Знайдено правильних синонімів: ' + correctCount + '/7';
+    logEvent('exercise_complete', 'multi: ' + correctCount + '/7');
+    updateProgress();
+  }
+
+  function updateProgress(){
+    const done = Object.values(sectionsDone).filter(Boolean).length;
+    const pct = Math.round(done/3*100);
+    saveProgressToHub(done, 3, scores.fill + scores.tf + scores.multi, scores.fillMax + scores.tfMax + scores.multiMax);
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressPct').textContent = pct + '%';
+    document.getElementById('progressLabel').textContent = 'Виконано ' + done + ' із 3 вправ';
+    if(done === 3){
+      const total = scores.fill + scores.tf + scores.multi;
+      const max = scores.fillMax + scores.tfMax + scores.multiMax;
+      document.getElementById('bigScore').textContent = total + '/' + max;
+      document.getElementById('summary').style.display = 'block';
+      document.getElementById('summary').scrollIntoView({behavior:'smooth', block:'nearest'});
+      logEvent('module_complete', total + '/' + max);
+    }
+  }
+
+  function resetAll(){
+    document.querySelectorAll('.blank').forEach(i=>{i.value='';i.style.borderColor='var(--lavender-2)';});
+    document.querySelectorAll('.feedback').forEach(f=>f.textContent='');
+    document.querySelectorAll('.tf-btn').forEach(b=>b.classList.remove('selected','correct','incorrect'));
+    document.querySelectorAll('.tf-buttons').forEach(g=>delete g.dataset.chosen);
+    document.querySelectorAll('#multiGrid input[type=checkbox]').forEach(c=>c.checked=false);
+    document.querySelectorAll('.multi-chip').forEach(c=>c.classList.remove('correct','incorrect'));
+    document.querySelectorAll('.section-result').forEach(r=>r.textContent='');
+    sectionsDone = {fill:false, tf:false, multi:false};
+    scores = {fill:0, fillMax:5, tf:0, tfMax:4, multi:0, multiMax:7};
+    document.getElementById('summary').style.display = 'none';
+    updateProgress();
+  }
+</script>
+</body>
+</html>

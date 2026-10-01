@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exam SOS Kit — Твій прогрес | @tutor_nsw</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF6FC;
+    --ink:#3D2A52;
+    --ink-soft:#7C6E8C;
+    --primary:#7C4FA0;
+    --primary-dark:#5B3480;
+    --lavender:#EFE4FA;
+    --lavender-2:#E3D2F5;
+    --card:#FFFFFF;
+    --success:#4F9A6E;
+    --success-bg:#E7F3EC;
+    --warn:#D6A24A;
+    --warn-bg:#FBF2E3;
+    --muted:#B9AECB;
+    --muted-bg:#F2EDF9;
+    --radius:20px;
+    --shadow: 0 8px 30px rgba(91,52,128,0.10);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(600px 300px at 10% -10%, var(--lavender) 0%, transparent 60%),
+      radial-gradient(500px 260px at 100% 0%, var(--lavender-2) 0%, transparent 55%),
+      var(--bg);
+    font-family:'Nunito', sans-serif;
+    color:var(--ink);
+    padding:28px 16px 80px;
+  }
+  .wrap{max-width:680px;margin:0 auto;}
+
+  header{text-align:center;margin-bottom:22px;}
+  .kicker{
+    display:inline-flex;align-items:center;gap:6px;
+    font-family:'Baloo 2',sans-serif;
+    font-size:12px;letter-spacing:0.08em;font-weight:700;
+    color:var(--primary);
+    background:var(--lavender);
+    padding:5px 14px;border-radius:20px;
+    margin-bottom:12px;
+  }
+  h1{
+    font-family:'Baloo 2',sans-serif;
+    font-size:26px;
+    font-weight:700;
+    color:var(--primary-dark);
+    margin:0 0 6px;
+  }
+  .subtitle{color:var(--ink-soft);font-size:14px;font-weight:600;}
+  .handle{color:var(--primary);font-weight:700;}
+
+  .overall{
+    background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+    color:white;
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:22px 24px;
+    margin:20px 0 28px;
+    text-align:center;
+  }
+  .overall .big{font-family:'Baloo 2',sans-serif;font-size:40px;font-weight:800;line-height:1;}
+  .overall .label{font-size:13px;opacity:.9;font-weight:700;margin-top:4px;}
+  .overall .bar-outer{height:10px;background:rgba(255,255,255,.25);border-radius:6px;margin-top:14px;overflow:hidden;}
+  .overall .bar-inner{height:100%;background:white;border-radius:6px;transition:width .5s ease;}
+
+  .module-title{
+    font-family:'Baloo 2',sans-serif;
+    font-size:15px;
+    font-weight:700;
+    color:var(--primary-dark);
+    margin:26px 0 12px 4px;
+    display:flex;align-items:center;gap:8px;
+  }
+
+  .theme-card{
+    background:var(--card);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:18px 20px;
+    margin-bottom:12px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .theme-top{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .theme-name{
+    font-family:'Baloo 2',sans-serif;
+    font-size:16px;font-weight:700;color:var(--ink);
+    display:flex;align-items:center;gap:8px;
+  }
+  .badge{
+    font-family:'Baloo 2',sans-serif;
+    font-size:11px;font-weight:700;
+    padding:4px 10px;border-radius:20px;
+    white-space:nowrap;
+  }
+  .badge.not_started{background:var(--muted-bg);color:var(--ink-soft);}
+  .badge.in_progress{background:var(--warn-bg);color:var(--warn);}
+  .badge.completed{background:var(--success-bg);color:var(--success);}
+
+  .mini-bar-outer{height:8px;background:var(--lavender);border-radius:6px;overflow:hidden;}
+  .mini-bar-inner{height:100%;background:linear-gradient(90deg,var(--primary),var(--primary-dark));border-radius:6px;transition:width .5s ease;}
+
+  .theme-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .theme-score{font-size:12px;color:var(--ink-soft);font-weight:700;}
+  .open-btn{
+    background:var(--primary);color:white;text-decoration:none;
+    font-family:'Baloo 2',sans-serif;font-weight:700;font-size:13px;
+    padding:8px 16px;border-radius:10px;white-space:nowrap;
+    transition:.15s;
+  }
+  .open-btn:hover{background:var(--primary-dark);}
+
+  .note{
+    text-align:center;font-size:12px;color:var(--ink-soft);margin-top:26px;font-weight:600;line-height:1.6;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="kicker">🇬🇧 EXAM SOS KIT</div>
+    <h1>Твій прогрес</h1>
+    <div class="subtitle">Граматика для НМТ / ЄВІ · <span class="handle">@tutor_nsw</span></div>
+  </header>
+
+  <div class="overall">
+    <div class="big" id="overallPct">0%</div>
+    <div class="label" id="overallLabel">0 із 5 тем завершено</div>
+    <div class="bar-outer"><div class="bar-inner" id="overallBar" style="width:0%"></div></div>
+  </div>
+
+  <div id="modulesContainer"></div>
+
+  <div class="note">
+    📊 Прогрес зберігається у твоєму браузері на цьому пристрої — якщо відкриєш з іншого телефону чи комп'ютера, лічильник почнеться заново.<br>
+    Усі файли теми мають лежати в одній папці разом із цією сторінкою.
+  </div>
+
+</div>
+
+<script>
+  const THEMES = [
+    {module:"Модуль 1", theme:"Часи", file:"exam_sos_kit_module1_tenses.html", emoji:"🕒", totalSections:4},
+    {module:"Модуль 1", theme:"Infinitive vs Gerund", file:"exam_sos_kit_module1_infinitive_gerund.html", emoji:"🔁", totalSections:4},
+    {module:"Модуль 1", theme:"Passive Voice", file:"exam_sos_kit_module1_passive_voice.html", emoji:"🎭", totalSections:4},
+    {module:"Модуль 2", theme:"Conditionals", file:"exam_sos_kit_module2_conditionals.html", emoji:"🌦️", totalSections:3},
+    {module:"Модуль 2", theme:"Modal Verbs", file:"exam_sos_kit_module2_modal_verbs.html", emoji:"🗝️", totalSections:3}
+  ];
+
+  const STATUS_LABELS = {
+    not_started: "Не розпочато",
+    in_progress: "В процесі",
+    completed: "Завершено ✅"
+  };
+
+  function loadProgress(){
+    try{
+      const raw = localStorage.getItem('examSosProgress');
+      return raw ? JSON.parse(raw) : {};
+    }catch(e){ return {}; }
+  }
+
+  function render(){
+    const progress = loadProgress();
+    const container = document.getElementById('modulesContainer');
+    container.innerHTML = '';
+
+    let totalDone = 0, totalSections = 0, completedThemes = 0;
+
+    const modules = [...new Set(THEMES.map(t=>t.module))];
+    modules.forEach(mod=>{
+      const modTitle = document.createElement('div');
+      modTitle.className = 'module-title';
+      modTitle.textContent = '📁 ' + mod;
+      container.appendChild(modTitle);
+
+      THEMES.filter(t=>t.module===mod).forEach(t=>{
+        const entry = progress[t.theme];
+        const done = entry ? entry.done : 0;
+        const total = t.totalSections;
+        const status = entry ? entry.status : 'not_started';
+        const pct = Math.round((done/total)*100);
+
+        totalDone += done;
+        totalSections += total;
+        if(status === 'completed') completedThemes++;
+
+        const card = document.createElement('div');
+        card.className = 'theme-card';
+        card.innerHTML =
+          '<div class="theme-top">'+
+            '<div class="theme-name">'+t.emoji+' '+t.theme+'</div>'+
+            '<span class="badge '+status+'">'+STATUS_LABELS[status]+'</span>'+
+          '</div>'+
+          '<div class="mini-bar-outer"><div class="mini-bar-inner" style="width:'+pct+'%"></div></div>'+
+          '<div class="theme-bottom">'+
+            '<span class="theme-score">'+(entry && entry.max ? entry.score+'/'+entry.max+' балів' : done+'/'+total+' вправ')+'</span>'+
+            '<a class="open-btn" href="'+t.file+'">Відкрити →</a>'+
+          '</div>';
+        container.appendChild(card);
+      });
+    });
+
+    const overallPct = totalSections ? Math.round((totalDone/totalSections)*100) : 0;
+    document.getElementById('overallPct').textContent = overallPct + '%';
+    document.getElementById('overallLabel').textContent = completedThemes + ' із ' + THEMES.length + ' тем завершено';
+    document.getElementById('overallBar').style.width = overallPct + '%';
+  }
+
+  render();
+  window.addEventListener('pageshow', render);
+</script>
+</body>
+</html>
